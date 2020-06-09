@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Вопрос: {{ question.title }}{% endblock title %}
+{% block header %}{{ question.title }}{% endblock header %}
+{% block content %}
+{% if question.image %}
+    <img src="{{ question.image.url }}" class="rounded-lg">
+{% endif %}
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form action="" method="post">  
+    {% for answer in question.answer_in_question.all %}
+    {% csrf_token %}
+    {% if blocks.type_block == 'TS' %}
+    <div class="custom-control custom-radio">
+        <input class="custom-control-input" type="radio" name="answer" value="{{answer.id}}" id="answer{{forloop.counter}}">
+        <label class="custom-control-label" for="answer{{forloop.counter}}">
+            {{ answer.title }}
+        </label>
+    </div>
+    {% else %}
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="answer" value="{{answer.id}}" id="answer{{forloop.counter}}">
+        <label class="form-check-label" for="answer{{forloop.counter}}">
+            {{ answer.title }}
+        </label>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <br>
+    <input class="btn btn-dark" type="submit" value="Отправить">
+</form>
+{% endblock %}

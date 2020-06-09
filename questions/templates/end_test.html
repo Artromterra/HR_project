@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Пользователь: {{ user.username }}{% endblock title %}
+{% block header %}{{ user.username }} - мы вас поздравляем с прохождением тестов!{% endblock header %}
+{% block content %}
+<br><br>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <a href="{% url 'results' name=user.username %}" class="btn btn-primary btn-lg text-center" role="button" aria-pressed="true">Посмотреть результаты</a>  
+    </div>
+</div>
+
+{% endblock %}

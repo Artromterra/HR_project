@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Пользователь: {{ actual_user }}{% endblock title %}
+{% block header %}Результат подсчета пользователя "{{ actual_user }}"{% endblock header %}
+{% block content %}
+{% for questions in answer_list %}
+{% if questions.block.type_block == 'TS' %}
+<h3>Вы ответили на следующие вопросы Теста:</h3>
+{% else %}
+<h3>Вы ответили на следующие вопросы Опросника:</h3>
+{% endif %}
+{% for q in questions.question.all %}
+    <h5>{{ q.title }}</h5>
+{% endfor %} 
+<h3>И выбрали следующие варианты ответов:</h3>
+{% for a in questions.answer.all %}
+<h5>{{ a.title }}</h5>
+{% endfor %}
+    
+    <br>
+{% if questions.block.type_block == 'TS' %}
+<h3>И получили баллов за тест: <strong>{{ questions.test_total }}</strong></h3>
+{% else %}
+<h3>И получили баллов за опросник: <strong>{{ questions.poll_total }}</strong></h3>
+{% endif %}
+<hr>
+{% endfor %}
+<br>
+{% endblock %}

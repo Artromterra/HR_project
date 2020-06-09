@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Блоки{% endblock title %}
+{% block header %}Выберите блок тестов или вопросов{% endblock header %}
+{% block content %}
+<!-- <div class="row"> -->
+{% for block in allblocks %}
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card text-center">
+      {% if block.type_block == 'TS' %}
+      <div class="card-header">
+        <h3>Тест</h3><p>Дата начала тестирования {{ block.date_begin }}</p>
+      </div>
+      {% else %}
+      <div class="card-header">
+        <h3>Опросник</h3><p>Дата начала опроса {{ block.date_begin }}</p>
+      </div>
+      {% endif %}
+      {% if block.is_passed is True %}
+        <div class="card-body">
+          <h5 class="card-title">{{ block.title }}</h5><span style="color: red;">(Этот тест не доступен для прохождения)</span>
+          <div class="card-text">{{ block.description | safe }}</div>
+          <a href="{% url 'question_in_block' block_id=block.pk %}" class="btn btn-primary disabled">Выбрать блок: {{ block.title }}</a>
+        </div>
+      {% elif user.last_login <= block.date_begin %}
+        <div class="card-body">
+          <h5 class="card-title">{{ block.title }}</h5><span style="color: rgb(68, 136, 226);">Тест(опросник) будет доступен {{ block.date_begin }})</span>
+          <div class="card-text">{{ block.description | safe }}</div>
+          <a href="{% url 'question_in_block' block_id=block.pk %}" class="btn btn-primary disabled">Выбрать блок: {{ block.title }}</a>
+        </div>
+      {% else %}
+        <div class="card-body">
+          <h5 class="card-title">{{ block.title }}</h5>
+          <div class="card-text">{{ block.description | safe }}</div>
+          <a href="{% url 'question_in_block' block_id=block.pk %}" class="btn btn-primary">Выбрать блок: {{ block.title }}</a>
+        </div>
+      {% endif %}
+    </div>
+    <br>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
