@@ -4,9 +4,9 @@
 {% block content %}
 {% for questions in answer_list %}
 {% if questions.block.type_block == 'TS' %}
-<h3>Вы ответили на следующие вопросы Теста:</h3>
+<h3>Вы ответили на следующие вопросы теста "{{ questions.block.title }}":</h3>
 {% else %}
-<h3>Вы ответили на следующие вопросы Опросника:</h3>
+<h3>Вы ответили на следующие вопросы опросника "{{ questions.block.title }}":</h3>
 {% endif %}
 {% for q in questions.question.all %}
     <h5>{{ q.title }}</h5>

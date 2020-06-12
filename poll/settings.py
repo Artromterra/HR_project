@@ -80,7 +80,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'poll.wsgi.application'
 
 
-# Database
+# Database default
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 # DATABASES = {
@@ -91,7 +91,18 @@ WSGI_APPLICATION = 'poll.wsgi.application'
 # }
 
 # for deploy on heroku
-DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
+# DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
+
+# for Docker-compose settings:
+DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'postgres',
+       'USER': 'postgres',
+       'HOST': 'db',
+       'PORT': 5432,
+   }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -204,7 +215,3 @@ TINYMCE_DEFAULT_CONFIG={
 	'external_image_list_url': 'lists/image_list.js',
 	'media_external_list_url': 'lists/media_list.js',
 }
-# Heroku: Update database configuration from $DATABASE_URL.
-
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)

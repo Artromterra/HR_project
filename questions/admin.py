@@ -22,7 +22,7 @@ class QuestionInBlockInline(admin.TabularInline):
 
 @admin.register(Block)
 class BlockAdmin(admin.ModelAdmin):
-    list_display = ('title', 'type_block')
+    fields = ['title', 'type_block', 'description', 'is_passed', 'date_begin']
     inlines = [QuestionInBlockInline]
 
 class AnswerInline(admin.TabularInline):
