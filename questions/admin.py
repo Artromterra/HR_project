@@ -5,18 +5,13 @@ from .models import Block, Question, Answer, QuestionInBlock, UserProfile
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    # pass
     list_filter = ('user', 'question_in_block')
     fieldsets = (
         (None, {
             'fields': ('user', 'question_in_block','answer', 'poll_total', 'test_total')
         }),
-        # ('Выборка', {
-        #     'fields': ('', 'answer')
-        # }),
     )
 
-# @admin.register(QuestionInBlock)
 class QuestionInBlockInline(admin.TabularInline):
     model = QuestionInBlock
     extra = 0
@@ -34,6 +29,3 @@ class AnswerInline(admin.TabularInline):
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('title', 'image', 'type_variant')
     inlines = [AnswerInline]
-
-
-

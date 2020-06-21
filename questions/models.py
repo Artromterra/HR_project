@@ -64,7 +64,6 @@ class Block(models.Model):
 class QuestionInBlock(models.Model):
 	question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question', null=True, verbose_name='Вопрос')
 	block = models.ForeignKey(Block, on_delete=models.CASCADE, related_name='block', verbose_name='Блок')
-	weight = models.SmallIntegerField("Вес вопроса в тесте", editable=True, default=0)
 
 	class Meta:
 		verbose_name = 'Вопрос в блоке'
@@ -76,9 +75,7 @@ class QuestionInBlock(models.Model):
 class UserProfile(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
 	question_in_block = models.ManyToManyField(QuestionInBlock, related_name='question_in_block', verbose_name='Вопросы в блоке', default='', blank=True)
-	# question = models.ManyToManyField(Question, related_name='user_question', verbose_name='Вопросы', default='', blank=True)
 	answer = models.ManyToManyField(Answer, related_name='user_answer', verbose_name='Ответы', default='', blank=True)
-	# block = models.ForeignKey(QuestionInBlock, on_delete=models.CASCADE, related_name='user_block', verbose_name='Блок', default='', blank=True, null=True)
 	poll_total = models.SmallIntegerField("Сумма ответов опросника", editable=True, default=0)
 	test_total = models.SmallIntegerField("Сумма ответов в тесте", editable=True, default=0)
 	
