@@ -2,27 +2,21 @@
 {% block title %}Пользователь: {{ actual_user }}{% endblock title %}
 {% block header %}Результат подсчета пользователя "{{ actual_user }}"{% endblock header %}
 {% block content %}
+<h5>Вы ответили на следующие вопросы:</h5>
 {% for questions in answer_list %}
-{% if questions.block.type_block == 'TS' %}
-<h3>Вы ответили на следующие вопросы теста "{{ questions.block.title }}":</h3>
-{% else %}
-<h3>Вы ответили на следующие вопросы опросника "{{ questions.block.title }}":</h3>
-{% endif %}
-{% for q in questions.question.all %}
-    <h5>{{ q.title }}</h5>
-{% endfor %} 
-<h3>И выбрали следующие варианты ответов:</h3>
-{% for a in questions.answer.all %}
-<h5>{{ a.title }}</h5>
+    {% for q in questions.question_in_block.all %}
+        <ul>
+            <li>Блок: {{ q.block.title }} || Вопрос: {{ q.question.title }}</li>
+        </ul>
+        {% endfor %}
+    <h5>И выбрали следующие варианты ответов:</h5>
+    {% for a in questions.answer.all %}
+        <ul>
+            <li>{{ a.title }}</li>
+        </ul>
+    {% endfor %}
+        <h5>И получили баллов за тест: <strong>{{ questions.test_total }}</strong></h5>
+        <h5>И получили баллов за опросник: <strong>{{ questions.poll_total }}</strong></h5>
+        <hr>
 {% endfor %}
-    
-    <br>
-{% if questions.block.type_block == 'TS' %}
-<h3>И получили баллов за тест: <strong>{{ questions.test_total }}</strong></h3>
-{% else %}
-<h3>И получили баллов за опросник: <strong>{{ questions.poll_total }}</strong></h3>
-{% endif %}
-<hr>
-{% endfor %}
-<br>
 {% endblock %}

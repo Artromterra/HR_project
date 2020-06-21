@@ -1,0 +1,16 @@
+.footer {
+    position: absolute;
+    bottom:0;
+    height:30px;
+    background: #9ec1c2;;
+    width:100%;
+}
+#footer-text{
+    font-family: 'Lobster', cursive;
+}
+h1{
+    font-family: 'Lobster', cursive;
+}
+.copyright{
+    font-size: large;
+}

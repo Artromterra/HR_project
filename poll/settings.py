@@ -90,19 +90,21 @@ WSGI_APPLICATION = 'poll.wsgi.application'
 # 	}
 # }
 
-# for deploy on heroku
-# DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
+#for deploy on heroku
+
+DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
 # for Docker-compose settings:
-DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'postgres',
-       'USER': 'postgres',
-       'HOST': 'db',
-       'PORT': 5432,
-   }
-}
+
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'postgres',
+#        'USER': 'postgres',
+#        'HOST': 'db',
+#        'PORT': 5432,
+#    }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

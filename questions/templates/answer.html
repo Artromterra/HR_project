@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}Вопрос: {{ question.title }}{% endblock title %}
-{% block header %}{{ question.title }}{% endblock header %}
+{% block title %}Вопрос: {{ question.question.title }}{% endblock title %}
+{% block header %}{{ question.question.title }}{% endblock header %}
 {% block content %}
-{% if question.image %}
-    <img src="{{ question.image.url }}" class="rounded-lg">
+{% if question.question.image %}
+    <img src="{{ question.question.image.url }}" class="rounded-lg">
 {% endif %}
 {% if error_message %}
     <p><strong>{{ error_message }}</strong></p>
 {% endif %}
 <form action="" method="post">  
-    {% for answer in question.answer_in_question.all %}
+    {% for answer in question.question.answer_in_question.all %}
     {% csrf_token %}
     {% if blocks.type_block == 'TS' %}
     <div class="custom-control custom-radio">

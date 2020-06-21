@@ -37,7 +37,7 @@ class Answer(models.Model):
 		verbose_name_plural = 'Ответы'
 
 	def __str__(self):
-		return self.title
+		return f'{self.title} - вес: {self.weight}'
 
 class Block(models.Model):
 	POLL = 'PL'
@@ -71,13 +71,14 @@ class QuestionInBlock(models.Model):
 		verbose_name_plural = 'Вопросы в блоке'
 
 	def __str__(self):
-		return str(self.question)	
+		return str(f'{self.block} || {self.question}')	
 
 class UserProfile(models.Model):
-	profile_user = models.CharField("Пользователь", max_length=100, blank=True, null=True)
-	question = models.ManyToManyField(Question, related_name='user_question', verbose_name='Вопросы', default='', blank=True)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
+	question_in_block = models.ManyToManyField(QuestionInBlock, related_name='question_in_block', verbose_name='Вопросы в блоке', default='', blank=True)
+	# question = models.ManyToManyField(Question, related_name='user_question', verbose_name='Вопросы', default='', blank=True)
 	answer = models.ManyToManyField(Answer, related_name='user_answer', verbose_name='Ответы', default='', blank=True)
-	block = models.ForeignKey(Block, on_delete=models.CASCADE, related_name='user_block', verbose_name='Блок', default='', blank=True, null=True)
+	# block = models.ForeignKey(QuestionInBlock, on_delete=models.CASCADE, related_name='user_block', verbose_name='Блок', default='', blank=True, null=True)
 	poll_total = models.SmallIntegerField("Сумма ответов опросника", editable=True, default=0)
 	test_total = models.SmallIntegerField("Сумма ответов в тесте", editable=True, default=0)
 	
@@ -86,4 +87,4 @@ class UserProfile(models.Model):
 		verbose_name_plural = 'Статистика пользователей'
 
 	def __str__(self):
-		return str(self.profile_user)
+		return str(self.user)

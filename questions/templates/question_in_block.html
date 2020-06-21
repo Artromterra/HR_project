@@ -3,6 +3,6 @@
 {% block header %}{{ blocks.title }}{% endblock header %}
 {% block content %}
 {% for question in questions_in_block %}
-<h4><a href="{% url 'answer' question.question.id %}">{{ question.question.title }}</a></h4>
+<h4><a href="{% url 'answer' question.id %}">{{ question.question.title }}</a></h4>
 {% endfor %}
 {% endblock %}
