@@ -5,15 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Django",
+            "name": "Django",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/manage.py",
-            "console": "integratedTerminal",
+            "stopOnEntry": false,
+            "program": "${workspaceRoot}/manage.py",
             "args": [
                 "runserver",
+                "--no-color",
+                "--noreload"
             ],
-            "django": true
+            "debugOptions": [
+                "WaitOnAbnormalExit",
+                "WaitOnNormalExit",
+                "RedirectOutput",
+                "DjangoDebugging"
+            ]
         },
     ]
 }

@@ -23,7 +23,7 @@ class Question(models.Model):
 		verbose_name_plural = 'Вопросы'
 	
 	def __str__(self):
-		return self.title
+		return f'id={self.id} -  {self.title}'
 
 class Answer(models.Model):
 	title = models.CharField("Ответ", max_length=128, null=True, blank=True)
@@ -78,6 +78,7 @@ class UserProfile(models.Model):
 	answer = models.ManyToManyField(Answer, related_name='user_answer', verbose_name='Ответы', default='', blank=True)
 	poll_total = models.SmallIntegerField("Сумма ответов опросника", editable=True, default=0)
 	test_total = models.SmallIntegerField("Сумма ответов в тесте", editable=True, default=0)
+	is_full = models.BooleanField("Проверка заполненности", default=False)
 	
 	class Meta:
 		verbose_name = 'Статистика пользователя'

@@ -48,7 +48,7 @@ def questioninblock(request, block_id):
 		'blocks': blocks,
 		'questions_in_block': questions_in_block,
 	}
-	for i in user_profile:
+	for i in user_profile: # проверка на повторное прохождение теста
 		for a in i.question_in_block.all():
 			if a.block.id == block_id and i.question_in_block.all().count() == questions_in_block.count():
 				return redirect('wrong_block')
@@ -58,10 +58,10 @@ def questioninblock(request, block_id):
 @login_required()
 def answer(request, question_id):
 	user = request.user
-	users_profiles = UserProfile.objects.filter(user=user)
-	question = get_object_or_404(QuestionInBlock, pk=question_id)
+	question = QuestionInBlock.objects.get(id=question_id) 
 	block_id = QuestionInBlock.objects.get(id=question_id).block.id
 	blocks = get_object_or_404(Block, pk=block_id)
+	users_profiles = UserProfile.objects.filter(user=user)
 	questions_count = QuestionInBlock.objects.filter(block__id=block_id).count()
 	try:
 		multiple_answer = question.question.answer_in_question.filter(id__in=request.POST.getlist('answer'))
@@ -75,7 +75,7 @@ def answer(request, question_id):
 		return render(request, 'answer.html', context)
 
 	for i in users_profiles:
-		if i.question_in_block.all().count() != questions_count:
+		if i.question_in_block.all().count() != questions_count and i.is_full is False:
 			if blocks.type_block == 'PL': #проверка на тип теста и подсчет отвеченных вопросов
 				for a in multiple_answer:
 					i.answer.add(a)
@@ -98,6 +98,8 @@ def answer(request, question_id):
 					if a.correct is False:
 						i.poll_total += a.weight
 						i.save()
+			i.is_full = True
+			i.save()
 		
 		blocks.question_count = 0
 		blocks.save()
