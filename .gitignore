@@ -1,5 +1,6 @@
-*.bak
-*.sqlite3
-*.pyc
-*.idea
-*.vscode
+.bak
+.sqlite3
+.pyc
+.idea
+.vscode
+env
