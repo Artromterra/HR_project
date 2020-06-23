@@ -34,8 +34,17 @@ def blocks(request):
 	else:
 		return render(request, 'blocks.html', context)
 
-class WrongBlockView(TemplateView):
-	template_name = 'wrong_block.html'
+# class WrongBlockView(TemplateView):
+# 	template_name = 'wrong_block.html'
+
+@login_required()
+def wrongblock(request):
+	user = request.user
+	user_profile = UserProfile.objects.filter(user=user)
+	for i in user_profile:
+		if i.is_full is False:
+			i.delete()
+	return render(request, 'wrong_block.html', {'user': user})
 
 @login_required()
 def questioninblock(request, block_id):
