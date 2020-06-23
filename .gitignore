@@ -1,6 +1,7 @@
-.bak
-.sqlite3
-.pyc
-.idea
-.vscode
-env
+db.sqlite3
+*.pyc
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+env/
+__pycache__/
