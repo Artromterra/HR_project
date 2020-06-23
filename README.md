@@ -8,7 +8,7 @@
 3. Запустить контейнеры: docker-compose up затем остановить.
 4. Создать миграции: docker-compose run web python manage.py makemigrations.
 5. Провести миграции БД: docker-compose run web python manage.py migrate.
-6. Создать суперпользователя: docker-compose run web python manage.py createsuperuser.(если загружать фикстуры, то суперпользователя можно не создавать)
+6. Создать суперпользователя: docker-compose run web python manage.py createsuperuser.(`если загружать фикстуры, то суперпользователя можно не создавать`)
 7. Загрузить фикстуры в БД: docker-compose run web python manage.py loaddata data.xml
 8. Запустить контейнеры: docker-compose up.
 ***
